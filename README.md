@@ -1,10 +1,10 @@
-# computer_vision_hand
+# computer vision hand tracking and finger counting
 
-#interpreters required:
+interpreters required:
 
-#opencv-python
+opencv-python
 
-#mediapipe
+mediapipe
 
 Leveraging opencv and mediapipe, there are a few projects here; the most interesting is FingerCountingProject.py which
 tracks hand landmarks and then reproduces your finger postures, open or closed.  I experimented with algorithms to 
