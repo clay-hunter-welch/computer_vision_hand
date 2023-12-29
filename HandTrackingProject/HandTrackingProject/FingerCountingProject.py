@@ -13,6 +13,7 @@ folderPath = "FingerCountingImages"
 backdrop = cv2.imread(f'{folderPath}/backdrop.png', cv2.IMREAD_UNCHANGED)
 arm = cv2.imread(f'{folderPath}/arm.png', cv2.IMREAD_UNCHANGED)
 palm = cv2.imread(f'{folderPath}/palm.png', cv2.IMREAD_UNCHANGED)
+thumbsUp = cv2.imread(f'{folderPath}/thumbsUp.png', cv2.IMREAD_UNCHANGED)
 
 cList = sorted(os.listdir(f'{folderPath}/closedUp'))
 eList = sorted(os.listdir(f'{folderPath}/extended'))
@@ -65,36 +66,46 @@ def merge_image(back, front, x, y):
 
 def main():
     bobFactor = 0
-
+    weaveFactor = 0
     while True:
         fingerState = [0, 0, 0, 0, 0]
         bobFactorRaw = (math.sin(2.3 * time.time())) * 5
         bobFactor = int(bobFactorRaw)
-        # print(bobFactorRaw, bobFactor)
+        weaveFactorRaw = (math.sin(1.5 * time.time())) * 3
+        weaveFactor = int(weaveFactorRaw)
+        thumbsUpFlag = 0
+        thumbsUpRot = 70
+
         success, img = cap.read()
 
         img = detector.findHands(img)
-        img = merge_image(img, backdrop, xOff, yOff)
-        img = merge_image(img, arm, xAnimOff, yAnimOff + bobFactor + 30)
-        img = merge_image(img, palm, xAnimOff, yAnimOff + bobFactor)
         lmList = detector.findPosition(img)
-
         if len(lmList):
             fingerState = detector.findCurledFingers(lmList)
+        if sum(fingerState) == 1 and fingerState[0]:
+            thumbsUpFlag = 1
 
-        # add fingers to match fingerstate
-        for digit in range(1, 5):
-            if fingerState[digit]:
-                img = merge_image(img, extended[digit], xAnimOff, yAnimOff + bobFactor)
-            else:
-                img = merge_image(img, closedUp[digit], xAnimOff, yAnimOff + bobFactor)
-        # add thumb to match fingerstate
-        if fingerState[0]:
-            img = merge_image(img, extended[0], xAnimOff, yAnimOff + bobFactor)
+        img = merge_image(img, backdrop, xOff, yOff)
+        img = merge_image(img, arm, xAnimOff + weaveFactor, yAnimOff + bobFactor + 30)
+
+        if thumbsUpFlag:
+            img = merge_image(img, thumbsUp, xAnimOff + weaveFactor, yAnimOff + bobFactor)
         else:
-            img = merge_image(img, closedUp[0], xAnimOff, yAnimOff + bobFactor)
+            img = merge_image(img, palm, xAnimOff + weaveFactor, yAnimOff + bobFactor)
 
-        cv2.imshow("Image", img)
+            # add fingers to match fingerState
+            for digit in range(1, 5):
+                if fingerState[digit]:
+                    img = merge_image(img, extended[digit], xAnimOff + weaveFactor, yAnimOff + bobFactor)
+                else:
+                    img = merge_image(img, closedUp[digit], xAnimOff + weaveFactor, yAnimOff + bobFactor)
+            # add thumb to match fingerstate
+            if fingerState[0]:
+                img = merge_image(img, extended[0], xAnimOff + weaveFactor, yAnimOff + bobFactor)
+            else:
+                img = merge_image(img, closedUp[0], xAnimOff + weaveFactor, yAnimOff + bobFactor)
+
+        cv2.imshow("oooOOOOooooOOOOooo!", img)
         cv2.waitKey(1)
 
 
