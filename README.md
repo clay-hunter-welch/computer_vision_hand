@@ -1,6 +1,9 @@
 # computer_vision_hand
+
 #interpreters required:
+
 #opencv-python
+
 #mediapipe
 
 Leveraging opencv and mediapipe, there are a few projects here; the most interesting is FingerCountingProject.py which
