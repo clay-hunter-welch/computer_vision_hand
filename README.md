@@ -6,7 +6,7 @@ opencv-python
 
 mediapipe
   
-Leveraging opencv and mediapipe, there are a few projects here; the most interesting is FingerCountingProject.py which
+Leveraging OpenCV and mediapipe, there are a few projects here; the most interesting is FingerCountingProject.py which
 tracks hand landmarks and then reproduces your finger postures, open or closed.  I experimented with algorithms to 
 determine the curled state of each finger, most of them having to do with calculating joint angles.  Ultimately I 
 realized that I could just check the distance from a given fingertop to the 0 landmark at the base of the palm, and as
@@ -20,7 +20,10 @@ Finally the code runs the current time through math.sin() with some frequency tw
 the robot's disconnected arm, which was fun to figure out how to do.  
 
 
-Future fixes:
+Future work:
 - distance from camera is not normalized to a unit scale, so "further away" equals "closer together" for trackers, which
   causes issues.  Unit length can be defined as the distance from landmark 0 to landmark 5, and could be used to compensate for this.
 - thumb curl determination is tricky and finicky, can improve this.
+- there is a Texas A&M Gig'Em/Terminator 2 gesture for thumbs up; this should be differentiated from a normal thumbs out gesture
+- currently only one hand tracks, but OpenCV will track multiple hands.  Further, hand orientation could also be mirrored correctly:
+  thumb on left vs thumb on right.
