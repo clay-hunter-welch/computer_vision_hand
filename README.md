@@ -30,3 +30,6 @@ Future work:
 
 - currently only one hand tracks, but OpenCV will track multiple hands.  Further, hand orientation could also be mirrored correctly:
   thumb on left vs thumb on right.
+- the real trick would be to combine this with the pose estimation module to get an understanding if the tracker is perceiving a
+  left hand or a right hand.  Then, knowing which hand and knowing its orientation based on thumb position, the hand graphic
+  could be swapped out for a back-of-hand version.  That would be cool.
