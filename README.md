@@ -21,10 +21,13 @@ the robot's disconnected arm, which was fun to figure out how to do.
 
 Resolved issues:
 
-- distance from camera is not normalized to a unit scale, so "further away" equals "closer together" for trackers, which
+- This is implemented in a cursory form now:
+  distance from camera is not normalized to a unit scale, so "further away" equals "closer together" for trackers, which
   causes issues.  Unit length can be defined as the distance from landmark 0 to landmark 5, and could be used to compensate for this.
-- thumb curl determination is tricky and finicky, can improve this.
-- there is a Texas A&M Gig'Em/Terminator 2 gesture for thumbs up; this should be differentiated from a normal thumbs out gesture.
+- Worked on the logic and improved performance for this next one:
+  thumb curl determination is tricky and finicky, can improve this.
+- This next one is improved by an understanding of thumbs up orientation, allowing for two different curl checks based on pose:
+  there is a Texas A&M Gig'Em/Terminator 2 gesture for thumbs up; this should be differentiated from a normal thumbs out gesture.
 
 Future work:
 
