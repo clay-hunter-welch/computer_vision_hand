@@ -73,22 +73,21 @@ def main():
         bobFactor = int(bobFactorRaw)
         weaveFactorRaw = (math.sin(1.5 * time.time())) * 3
         weaveFactor = int(weaveFactorRaw)
-        thumbsUpFlag = 0
-        thumbsUpRot = 70
+        thumbsUpOrientation = 0
 
         success, img = cap.read()
 
         img = detector.findHands(img)
         lmList = detector.findPosition(img)
         if len(lmList):
-            fingerState = detector.findCurledFingers(lmList)
-        if sum(fingerState) == 1 and fingerState[0]:
-            thumbsUpFlag = 1
+            fingerState, thumbsUpOrientation = detector.findCurledFingers(lmList)
+        # if sum(fingerState) == 1 and fingerState[0]:
+        #    thumbsUpFlag = 1
 
         img = merge_image(img, backdrop, xOff, yOff)
         img = merge_image(img, arm, xAnimOff + weaveFactor, yAnimOff + bobFactor + 30)
 
-        if thumbsUpFlag:
+        if sum(fingerState) == 1 and fingerState[0] and thumbsUpOrientation:
             img = merge_image(img, thumbsUp, xAnimOff + weaveFactor, yAnimOff + bobFactor)
         else:
             img = merge_image(img, palm, xAnimOff + weaveFactor, yAnimOff + bobFactor)
