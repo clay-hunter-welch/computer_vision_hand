@@ -19,11 +19,14 @@ helpful compositing method I found on stack overflow.
 Finally the code runs the current time through math.sin() with some frequency tweaking to add a little spooky bobbing in 
 the robot's disconnected arm, which was fun to figure out how to do.  
 
+Resolved issues:
 
-Future work:
 - distance from camera is not normalized to a unit scale, so "further away" equals "closer together" for trackers, which
   causes issues.  Unit length can be defined as the distance from landmark 0 to landmark 5, and could be used to compensate for this.
 - thumb curl determination is tricky and finicky, can improve this.
 - there is a Texas A&M Gig'Em/Terminator 2 gesture for thumbs up; this should be differentiated from a normal thumbs out gesture.
+
+Future work:
+
 - currently only one hand tracks, but OpenCV will track multiple hands.  Further, hand orientation could also be mirrored correctly:
   thumb on left vs thumb on right.
